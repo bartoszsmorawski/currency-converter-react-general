@@ -1,0 +1,10 @@
+.header__tittle {
+    color:white;
+    text-align: center;
+    font-size: 60px;
+}
+
+.header__picture--homepage {
+    margin: 0 auto;
+    display: block;
+}
