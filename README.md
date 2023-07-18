@@ -4,7 +4,7 @@
 
 ## Demo:
 Below is a link that takes you directly to the cantor website.
-hWpisać nowy link
+https://bartoszsmorawski.github.io/currency-converter-react-general/
 
 
 ##   General description:
