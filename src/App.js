@@ -5,6 +5,8 @@ import Form from "./Form";
 import Result from "./Result";
 import { currencies } from "./currencies";
 import "./style.css";
+import { ThemeProvider } from "styled-components";
+import { theme } from "./theme";
 
 function App() {
   const [result, setResult] = useState();
@@ -23,14 +25,14 @@ function App() {
 
 
   return (
-    <div>
+    <ThemeProvider theme={theme}>
       <Header/>
       <Clock/>
       <Form 
       result={result}
       calculateResult={calculateResult}
       />
-    </div>
+    </ThemeProvider>
   );
 }
 
