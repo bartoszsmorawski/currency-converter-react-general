@@ -1,7 +1,7 @@
-import "./style.css";
+import { Title } from "./styled";
 
 const Header = () => (
-    <h1 className="header__tittle">Kalkulator Walut</h1>
+    <Title>Kalkulator Walut</Title>
 );
 
 export default Header;

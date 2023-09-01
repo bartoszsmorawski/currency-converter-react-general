@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { currencies } from "../currencies";
-import "./style.css";
+import { FormContainer, LabelText, Information, Legend, Button, Fieldset, FieldCurrency, FieldSum, } from "./styled";
 import Result from "../Result";
 
 export const Form = ({ calculateResult, result }) => {
@@ -13,18 +13,17 @@ export const Form = ({ calculateResult, result }) => {
   };
 
   return (
-    <div className="formContainer">
-      <form className="form" onSubmit={onSubmit}>
-        <fieldset className="form__fieldset">
-          <legend className="form__legend">Kalkulator:</legend>
+    <FormContainer>
+      <form onSubmit={onSubmit}>
+        <Fieldset>
+          <Legend>Kalkulator:</Legend>
           <p>
             <label>
-              <span className="form__labelText">Kwota w PLN*:</span>
-              <input
+              <LabelText>Kwota w PLN*:</LabelText>
+              <FieldSum
                 value={amount}
                 onChange={({ target }) => setAmount(target.value)}
                 placeholder="Wpisz kwotę"
-                className="form__field"
                 type="number"
                 step="0.01"
                 required
@@ -33,9 +32,8 @@ export const Form = ({ calculateResult, result }) => {
           </p>
           <p>
             <label>
-              <span className="form__labelText">Wymieniam na* :</span>
-              <select
-                className="form__field"
+              <LabelText>Wymieniam na* :</LabelText>
+              <FieldCurrency
                 value={currency}
                 onChange={({ target }) => setCurrency(target.value)}
               >
@@ -44,20 +42,20 @@ export const Form = ({ calculateResult, result }) => {
                     {currency.name}
                   </option>
                 ))}
-              </select>
+              </FieldCurrency>
             </label>
           </p>
           <p>
-            <button className="form__button ">Przelicz</button>
+            <Button>Przelicz</Button>
           </p>
           <Result result={result} />
-        </fieldset>
-        <p className="form__information">
+        </Fieldset>
+        <Information>
           Informacje o kursie walut zostały pobrane z głównej strony NBP. Kurs
           walut pochodzi z dnia 20.03.2022.
-        </p>
+        </Information>
       </form>
-    </div>
+    </FormContainer>
   );
 };
 

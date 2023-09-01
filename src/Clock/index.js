@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import "./style.css";
+import { BoxClock } from "./styled";
 
 export const Clock = () => {
   const [date, setDate] = useState(new Date());
@@ -14,7 +14,7 @@ export const Clock = () => {
     };
   }, []);
 
-  return <div className="clock">
+  return <BoxClock>
     Dzisiaj jest
     {" "}
 {date.toLocaleString(undefined, {
@@ -25,7 +25,7 @@ export const Clock = () => {
     day: "numeric",
     month: "long"
 })}
-    </div>
+    </BoxClock>
 
 };
 
