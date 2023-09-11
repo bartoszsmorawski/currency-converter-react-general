@@ -13,6 +13,7 @@ export const theme = {
         green:"#008000",
         darkTan:"#7c111154",
         mineShaft:"#333",
+        crimson: "#dc143c",
     },
 
     breakpoint: {
