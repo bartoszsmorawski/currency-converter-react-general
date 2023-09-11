@@ -95,6 +95,14 @@ export const FieldCurrency = styled.select`
 
 `;
 
+export const Loading = styled.p`
+ color: ${({ theme }) => theme.color.green};
+`;
+
+export const Failure = styled.p`
+ color: ${({ theme }) => theme.color.crimson};
+`;
+
 
 
 

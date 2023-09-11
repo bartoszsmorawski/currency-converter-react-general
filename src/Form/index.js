@@ -1,10 +1,34 @@
 import { useState } from "react";
-import { currencies } from "../currencies";
-import { FormContainer, LabelText, Information, Legend, Button, Fieldset, FieldCurrency, FieldSum, } from "./styled";
+import {
+  FormContainer,
+  LabelText,
+  Information,
+  Legend,
+  Button,
+  Fieldset,
+  FieldCurrency,
+  FieldSum,
+  Loading,
+  Failure,
+} from "./styled";
 import Result from "../Result";
+import { useRatesData } from "./useRatesData";
 
-export const Form = ({ calculateResult, result }) => {
-  const [currency, setCurrency] = useState(currencies[0].short);
+export const Form = () => {
+  const [result, setResult] = useState();
+  const ratesData = useRatesData();
+
+  const calculateResult = (currency, amount) => {
+    const rate = ratesData.rates[currency];
+
+    setResult({
+      sourceAmount: +amount,
+      targetAmount: amount * rate,
+      currency,
+    });
+  };
+
+  const [currency, setCurrency] = useState("EUR");
   const [amount, setAmount] = useState("");
 
   const onSubmit = (event) => {
@@ -14,6 +38,19 @@ export const Form = ({ calculateResult, result }) => {
 
   return (
     <FormContainer>
+      {ratesData.state === "loading" ? (
+        <Loading>
+          Poczekaj chwilę ! Strona pobiera aktualny kurs walut z Europejskiego
+          Banku Centralnego ! 💰💸💱
+        </Loading>
+      ) : ratesData.state === "error" ? (
+        <Failure>
+          Coś poszło nie tak ... Sprawdź, czy masz połączenie z internetem.
+          Jeśli tak to problem leży po naszej stronie ! Wróć do nas później 😉
+        </Failure>
+      ) : (
+        <></>
+      )}
       <form onSubmit={onSubmit}>
         <Fieldset>
           <Legend>Kalkulator:</Legend>
@@ -34,14 +71,16 @@ export const Form = ({ calculateResult, result }) => {
             <label>
               <LabelText>Wymieniam na* :</LabelText>
               <FieldCurrency
+                as="select"
                 value={currency}
                 onChange={({ target }) => setCurrency(target.value)}
               >
-                {currencies.map((currency) => (
-                  <option key={currency.short} value={currency.short}>
-                    {currency.name}
-                  </option>
-                ))}
+                {!!ratesData.rates &&
+                  Object.keys(ratesData.rates).map((currency) => (
+                    <option key={currency} value={currency}>
+                      {currency}
+                    </option>
+                  ))}
               </FieldCurrency>
             </label>
           </p>
@@ -51,8 +90,7 @@ export const Form = ({ calculateResult, result }) => {
           <Result result={result} />
         </Fieldset>
         <Information>
-          Informacje o kursie walut zostały pobrane z głównej strony NBP. Kurs
-          walut pochodzi z dnia 20.03.2022.
+          Strona pobiera aktualny kurs walut z Europejskiego Banku Centralnego.
         </Information>
       </form>
     </FormContainer>
